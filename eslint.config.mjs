@@ -18,13 +18,26 @@ export default [
       '**/*.mjs',
     ],
     // Override or add rules here
+    overrides: [
+      {
+        files: ['*.ts', '*.tsx'],
+        rules: {
+          '@nx/enforce-module-boundaries': [
+          'error',
+            {
+              "allowCircularSelfDependency": true
+            }
+          ],
+        }
+      }
+    ],
     rules: {},
   },
   ...nx.configs['flat/angular'],
   ...nx.configs['flat/angular-template'],
   {
     files: ['**/*.ts'],
-    rules: {
+    rules: {      
       '@angular-eslint/directive-selector': [
         'error',
         {
@@ -47,5 +60,5 @@ export default [
     files: ['**/*.html'],
     // Override or add rules here
     rules: {},
-  },
+  },  
 ];
