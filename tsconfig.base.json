@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@features/*": ["src/app/features/*"],
+      "@ui/*": ["src/app/ui/*"],
+      "@core/*": ["src/app/core/*"],
     }
   },
   "exclude": ["node_modules", "tmp"]
