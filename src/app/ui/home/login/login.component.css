@@ -1,0 +1,86 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.login {
+  width: 90%;
+  height: 60%;
+  min-width: 300px;
+  min-height: 350px;
+  max-width: 450px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem 0rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--mat-sys-surface-container-lowest);
+  box-shadow: var(--mat-sys-level0);
+}
+
+.login__header {
+  width: max-content;
+  height: max-content;
+}
+
+.login__title {
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-on-primary-fixed);
+  text-align: center;
+  font-weight: 600;
+  margin: 0.5rem 0rem;
+}
+
+.login__description {
+  font: var(--mat-sys-label-large);
+  color: var(--mat-sys-on-secondary-fixed);
+  font-weight: 400;
+}
+
+.login__logo {
+  width: max-content;
+  height: max-content;
+  margin: 0rem auto;
+}
+
+.login__container__buttons {
+  width: 100%;
+  height: max-content;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0rem 0.75rem;
+}
+
+.container__button {  
+  width: 100%;
+  background-color: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+
+.login__form {
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem 0rem;
+}
+
+.form__group {
+
+}
+
+.form__helpers {
+
+}
+
+.button--submit {
+
+}
