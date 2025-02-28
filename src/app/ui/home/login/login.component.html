@@ -1,21 +1,19 @@
-<div class="login__logo">
-  <img src="https://ucarecdn.com/5330ef77-7ab5-49bf-805f-d00e10273cc3/" width="80" alt="">
-</div>
-<div class="login">
-  <div class="login__header">
-    <p class="login__title">Sing In</p>
-    <p class="login__description">Dolor dolor lobortis et iriure eros. </p>
+<div class="login__wrapper">
+  <div class="login__logo">
+    <img src="https://ucarecdn.com/5330ef77-7ab5-49bf-805f-d00e10273cc3/" width="80" alt="">
   </div>
-  <div class="login__container__buttons">
-    <button mat-flat-button class="container__button">
-      Sign In
-    </button>
-    <button mat-flat-button class="container__button">
-      Sign Up
-    </button>
-  </div>
-  <form class="login__form">
-    <div class="form__group">
+  <div class="login__container">
+    <div class="login__header">
+      <h1 class="login__title">Sing In</h1>
+      <p class="login__description">Dolor dolor lobortis et iriure eros. </p>
+    </div>
+    <div class="toggle__container">
+      <mat-tab-group>
+        <mat-tab label="Sign In"></mat-tab>
+        <mat-tab label="Sign Up"></mat-tab>
+      </mat-tab-group>
+    </div>
+    <form class="login__form">      
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
         <input matInput/>
@@ -24,11 +22,18 @@
         <mat-label>Password</mat-label>
         <input matInput/>
       </mat-form-field>
+      <div class="form__helpers">
+        <mat-checkbox>Remember</mat-checkbox>
+        <a href="#" class="helpers__link">Forgot password</a>
+      </div>
+      <button type="submit" mat-flat-button class="button--submit" >
+        Login
+      </button>
+    </form>
+    <div class="login__footer">
+      <small class="footer__text">Don't have an account? 
+        <a href="#" class="footer__link">Sign Up</a>
+      </small>
     </div>
-    <div class="form__helpers">
-      <a href="#" class="form__helper">Forgot password?</a>
-      <input type="checkbox">
-    </div>
-    <button type="submit" class="button--submit" mat-flat-button>Login</button>
-  </form>
+  </div>
 </div>
