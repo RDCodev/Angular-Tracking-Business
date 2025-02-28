@@ -10,13 +10,11 @@
 }
 
 .container--medium {
-  column-gap: 1rem;
   grid-template-columns: minmax(30%, 2fr) 3fr;
   grid-template-rows: auto;
 }
 
 .container--large {
-  column-gap: 2rem;
   grid-template-columns: minmax(30%, 2fr) 3fr;
   grid-template-rows: auto;
 }
