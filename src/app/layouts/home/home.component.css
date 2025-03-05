@@ -1,0 +1,7 @@
+.container {
+  position: relative;
+  display: block;
+  background-color: var(--mat-sys-surface);
+  min-width: 100%;
+  min-height: 100%;
+}

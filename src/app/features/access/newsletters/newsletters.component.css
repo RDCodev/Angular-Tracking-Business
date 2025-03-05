@@ -9,7 +9,6 @@
 .newsletters {
   height: 100%;
   width: 100%;
-  padding: 1rem 2rem;
   background-color: var(--mat-sys-primary-container);
   border-radius: 2rem;
 }

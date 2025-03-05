@@ -4,6 +4,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input"
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatTabsModule } from "@angular/material/tabs";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { MatTabsModule } from "@angular/material/tabs";
   styleUrls: ['./login.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    CommonModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,

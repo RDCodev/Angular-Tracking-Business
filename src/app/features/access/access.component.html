@@ -1,0 +1,23 @@
+@let display = observer();
+@let isSmall = display === 'Small' || display === 'XSmall';
+
+<app-home>
+  <div
+    [ngClass]="{
+      'container__wrapper--small': isSmall,    
+    }"
+    class="container__wrapper"
+  >
+    <div class="container__block">
+      <app-login/>
+    </div>
+    <div 
+      [ngClass]="{        
+        'container__block--hidden': isSmall,
+      }"
+      class="container__block"
+    >
+      <app-newsletters/>      
+    </div>    
+  </div>
+</app-home>
