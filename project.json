@@ -8,7 +8,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@ngx-env/builder:application",
       "outputs": [
         "{options.outputPath}"
       ],
@@ -57,7 +57,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@ngx-env/builder:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "moderng-ui:build:production"
@@ -66,10 +66,11 @@
           "buildTarget": "moderng-ui:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {}
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@ngx-env/builder:extract-i18n",
       "options": {
         "buildTarget": "moderng-ui:build"
       }
@@ -83,12 +84,13 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@ngx-env/builder:karma",
       "outputs": [
         "{workspaceRoot}/coverage/{projectName}"
       ],
       "options": {
-        "jestConfig": "jest.config.app.ts"
+        "jestConfig": "jest.config.app.ts",
+        "builderMode": "browser"
       }
     },
     "serve-static": {
