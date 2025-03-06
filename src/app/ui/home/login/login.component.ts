@@ -18,4 +18,8 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatTabsModule
   ]
 })
-export class LoginComponent { }
+export class LoginComponent { 
+  
+  constructor() { }
+  
+}
