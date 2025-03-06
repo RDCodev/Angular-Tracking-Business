@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { HomeComponent } from "@layouts/home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { NewslettersComponent } from "./newsletters/newsletters.component";
 import { CommonModule } from "@angular/common";
 import { BreakPointsService } from "@core/services/breakpoints.service";
+import { MainLayout } from "@layouts/home/main.component";
 
 @Component({
   selector: 'app-access',
@@ -13,7 +13,7 @@ import { BreakPointsService } from "@core/services/breakpoints.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
-    HomeComponent,
+    MainLayout,
     RouterModule,
     LoginComponent,
     NewslettersComponent

@@ -1,7 +1,7 @@
 @let display = observer();
 @let isSmall = display === 'Small' || display === 'XSmall';
 
-<app-home>
+<layout-main>
   <div
     [ngClass]="{
       'container__wrapper--small': isSmall,    
@@ -20,4 +20,4 @@
       <app-newsletters/>      
     </div>    
   </div>
-</app-home>
+</layout-main>

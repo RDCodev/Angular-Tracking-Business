@@ -8,11 +8,20 @@
       <p class="login__description">Dolor dolor lobortis et iriure eros. </p>
     </div>
     <div class="login__content">
-      <mat-tab-group dynamicHeight>
-        <mat-tab label="Sign In">
+      <mat-tab-group 
+        dynamicHeight 
+        (selectedTabChange)="onTabChange($event)"
+      >
+        <mat-tab 
+          aria-label="Sign In"
+          label="Sign In"
+        >
           <ng-container [ngTemplateOutlet]="signInForm"/>
         </mat-tab>
-        <mat-tab label="Sign Up">
+        <mat-tab 
+          aria-label="Sign Up"
+          label="Sign Up"
+        >
           <ng-container [ngTemplateOutlet]="signUpForm"/>
         </mat-tab>
       </mat-tab-group>
@@ -26,14 +35,14 @@
 </div>
 
 <ng-template #signInForm>
-  <form class="form">
+  <form class="form" (ngSubmit)="null">
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
-      <input matInput/>
+      <input matInput />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput/>
+      <input matInput />
     </mat-form-field>
     <div class="form__helpers">
       <mat-checkbox>Remember</mat-checkbox>
