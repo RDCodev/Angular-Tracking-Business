@@ -1,17 +1,32 @@
-<form class="form" [formGroup]="signInForm" (ngSubmit)="null">
+<form class="form" [formGroup]="signInForm" (ngSubmit)="submit()">
   <mat-form-field appearance="outline">
     <mat-label>Username</mat-label>
-    <input matInput formControlName="username"/>
+    <input 
+      matInput 
+      type="text" 
+      formControlName="username"
+    />
+    @if(username.invalid) {
+      <mat-error>Invalid <strong>username</strong></mat-error>
+    }
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Password</mat-label>
-    <input matInput formControlName="password"/>
+    <input 
+      matInput 
+      type="password" 
+      formControlName="password"
+    />
+    @if(username.invalid) {
+      <mat-error>Invalid <strong>password</strong></mat-error>
+    }
   </mat-form-field>
   <div class="form__helpers">
     <mat-checkbox formControlName="rememberMe">Remember</mat-checkbox>
     <a href="#" class="helpers__link">Forgot password</a>
   </div>
-  <button type="submit" mat-flat-button class="button--submit" >
+  <button type="submit" mat-flat-button [disabled]="signInForm.invalid">
+    <mat-icon fontIcon="progress_activity"></mat-icon>
     Login
   </button>
 </form>
