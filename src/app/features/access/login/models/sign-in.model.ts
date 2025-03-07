@@ -1,5 +1,6 @@
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { AccessForm } from "../utils/access-factory.util";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 export interface RawSignIn {
   username: string | undefined;
@@ -22,26 +23,24 @@ export class SignInDTO implements RawSignIn {
 
 export class SignInForm implements AccessForm {
 
-  dto!: SignInDTO;
-  form!: FormGroup;
-  ctrls!: Record<string, AbstractControl>;
+  dto   !: SignInDTO;
+  form  !: FormGroup;
 
   constructor() {
-    this.init();
+    this.initialize();
   }
 
-  private init() {
-    
+  private initialize() {
+
     this.form = new FormGroup({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      rememberMe: new FormControl(false)
+      username: new FormControl('', { validators: [Validators.required], updateOn: 'change' }),
+      password: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
+      rememberMe: new FormControl(false),
     });
 
-    this.ctrls = this.form.controls;
   }
 
-  public submit(): void {
-    console.log('[Submit] - Sign In Form');
+  public validate(cb: (param?: any) => void) {
+    cb(new SignInDTO(this.form.value));
   }
 }
