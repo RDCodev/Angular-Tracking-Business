@@ -1,34 +1,26 @@
-import { SignInDTO } from "@features/access/login/models/sign-in.model";
-import { SignUpDTO } from '@features/access/login/models/sign-up.model';
+import { FormGroup } from "@angular/forms";
+import { SignInDTO, SignInForm } from "@features/access/login/models/sign-in.model";
+import { SignUpDTO, SignUpForm } from '@features/access/login/models/sign-up.model';
 
-export abstract class AccessForms {
-  abstract createForm(): Form
+export interface AccessForm {
+  dto: SignInDTO | SignUpDTO;
+  form: FormGroup;
+  ctrls: any;
+  submit(): void;
 }
 
-export class AccessSignInForm extends AccessForms {
-  createForm(): Form {
+export abstract class FormCreator {
+  abstract createForm(): AccessForm
+}
+
+export class SignInFormCreator extends FormCreator {
+  createForm(): AccessForm {
     return new SignInForm();
   }
 }
 
-export class AccessSignUpForm extends AccessForms {
-  createForm(): Form {
+export class SignUpFormCreator extends FormCreator {
+  createForm(): AccessForm {
     return new SignUpForm();
-  }
-}
-
-export interface Form {
-  submit(): void;
-}
-
-export class SignInForm implements Form {
-  submit(): void {
-    console.log('[Submit] - Sign In Form');
-  }
-}
-
-export class SignUpForm implements Form {
-  submit(): void {
-    console.log('[Submit] - Sign Up Form');
   }
 }
