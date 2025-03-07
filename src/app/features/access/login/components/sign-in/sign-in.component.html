@@ -1,0 +1,17 @@
+<form class="form" [formGroup]="signInForm" (ngSubmit)="null">
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username"/>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password"/>
+  </mat-form-field>
+  <div class="form__helpers">
+    <mat-checkbox formControlName="rememberMe">Remember</mat-checkbox>
+    <a href="#" class="helpers__link">Forgot password</a>
+  </div>
+  <button type="submit" mat-flat-button class="button--submit" >
+    Login
+  </button>
+</form>
