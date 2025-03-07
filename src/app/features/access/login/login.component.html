@@ -12,16 +12,15 @@
         dynamicHeight 
       >
         <mat-tab
-          #signInTab 
           aria-label="Sign In"
           label="Sign In"
         >
           <ng-container [ngComponentOutlet]="signInComponent"/>
         </mat-tab>
         <mat-tab
-          #signUpTab
           aria-label="Sign Up"
           label="Sign Up"
+          disabled
         >
           <ng-container [ngComponentOutlet]="signUpComponent"/>
         </mat-tab>
