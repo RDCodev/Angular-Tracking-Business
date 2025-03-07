@@ -4,25 +4,26 @@
   </div>
   <div class="login__container">
     <div class="login__header">
-      <h1 class="login__title">Sing In</h1>
+      <h1 class="login__title">Sign In</h1>
       <p class="login__description">Dolor dolor lobortis et iriure eros. </p>
     </div>
     <div class="login__content">
-      <mat-tab-group 
+      <mat-tab-group
         dynamicHeight 
-        (selectedTabChange)="onTabChange($event)"
       >
-        <mat-tab 
+        <mat-tab
+          #signInTab 
           aria-label="Sign In"
           label="Sign In"
         >
-          <ng-container [ngTemplateOutlet]="signInForm"/>
+          <ng-container [ngComponentOutlet]="signInComponent"/>
         </mat-tab>
-        <mat-tab 
+        <mat-tab
+          #signUpTab
           aria-label="Sign Up"
           label="Sign Up"
         >
-          <ng-container [ngTemplateOutlet]="signUpForm"/>
+          <ng-container [ngComponentOutlet]="signUpComponent"/>
         </mat-tab>
       </mat-tab-group>
     </div> 
@@ -33,51 +34,3 @@
     </div>   
   </div>
 </div>
-
-<ng-template #signInForm>
-  <form class="form" (ngSubmit)="null">
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input matInput />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input matInput />
-    </mat-form-field>
-    <div class="form__helpers">
-      <mat-checkbox>Remember</mat-checkbox>
-      <a href="#" class="helpers__link">Forgot password</a>
-    </div>
-    <button type="submit" mat-flat-button class="button--submit" >
-      Login
-    </button>
-  </form>
-</ng-template>
-
-<ng-template #signUpForm>
-  <form class="form">
-    <mat-form-field appearance="outline">
-      <mat-label>First Name</mat-label>
-      <input matInput/>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Last Name</mat-label>
-      <input matInput/>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input matInput/>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input matInput/>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Confirm Password</mat-label>
-      <input matInput/>
-    </mat-form-field>
-    <button type="submit" mat-flat-button class="button--submit" >
-      Register
-    </button>
-  </form>
-</ng-template>
