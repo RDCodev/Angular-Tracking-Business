@@ -1,5 +1,6 @@
-import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
-import { AccessForm } from "../utils/access-factory.util";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AccessForm } from "../utils/factory/access-factory.util";
+import { validatePasswords } from "../utils/validators/validate-password";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 export interface RawSignUp {
@@ -36,12 +37,24 @@ export class SignUpForm implements AccessForm {
 
   private init() {
     this.form = new FormGroup({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required])
-    });
+        firstName: new FormControl(''),
+        lastName: new FormControl(''),
+        username: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
+        password: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
+        confirmPassword: new FormControl('', { validators: [Validators.required], updateOn: 'change' })
+      },
+      {
+        validators: validatePasswords
+      }
+    );
+  }
+
+  get onStatusChanges() {
+    return toSignal(this.form.statusChanges)
+  }
+
+  get onValueChanges() {
+    return toSignal(this.form.valueChanges)
   }
 
   public validate(): void {

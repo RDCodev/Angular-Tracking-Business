@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, OnInit, signal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, effect, EnvironmentInjector, inject, OnInit, runInInjectionContext, Signal, signal } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
-import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/access-factory.util';
+import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/access-factory.util';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,16 +25,21 @@ import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/access-f
 })
 export class SignUpComponent implements OnInit {
 
+  private readonly envInjector = inject(EnvironmentInjector);
+
   private accessForm!: AccessForm;
+  public signUpForm !: FormGroup;
 
   public hide = signal(true);
 
   public usernameError = computed<string>(() => {
 
-    if(this.username.valid) return "";
+    const errors = this.username.errors;
 
-    switch(this.username.errors) {
-      case ["required"]:
+    if(this.username.valid && !errors) return "";
+
+    switch(true) {
+      case errors?.["required"]:
         return "Username is required";
       
       default:
@@ -45,10 +50,12 @@ export class SignUpComponent implements OnInit {
 
   public passwordError = computed<string>(() => {
 
-    if(this.password.valid) return "";
+    const errors = this.password.errors;
 
-    switch(this.password.errors) {
-      case ["required"]:
+    if(this.password.valid && !errors) return "";
+
+    switch(true) {
+      case errors?.["required"]:
         return "Password is required";
       
       default:
@@ -57,10 +64,17 @@ export class SignUpComponent implements OnInit {
   });
 
   public confirmPasswordError = computed<string>(() => {
-    if(this.confirmPassword.valid) return "";
 
-    switch(this.confirmPassword.errors) {
-      case ["required"]:
+    const errors = this.confirmPassword.errors;
+    const isValid = this.confirmPassword.valid;
+    
+    if(isValid && !errors) return "";
+
+    switch(true) {
+      case errors?.["passwordMismatch"]:
+        return "Password and Confirm Password must match";
+
+      case errors?.["required"]:
         return "Confirm Password is required";
       
       default:
@@ -68,14 +82,8 @@ export class SignUpComponent implements OnInit {
     }
   })
 
-  constructor() { }
-
   ngOnInit(): void {
     this.initAccessForm(new SignUpFormCreator());
-  }
-
-  get signUpForm() {
-    return this.accessForm.form;
   }
 
   get firstName() {
@@ -99,7 +107,10 @@ export class SignUpComponent implements OnInit {
   }
 
   private initAccessForm(creator: FormCreator) {
-    this.accessForm = creator.createForm();
+    runInInjectionContext(this.envInjector, () => {
+      this.accessForm = creator.createForm();
+      this.signUpForm = this.accessForm.form;
+    })
   }
 
   public onHidePassword(event: MouseEvent) {

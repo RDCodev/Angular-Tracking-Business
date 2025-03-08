@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { AccessForm, FormCreator, SignInFormCreator } from '@features/access/login/utils/access-factory.util';
+import { AccessForm, FormCreator, SignInFormCreator } from '@features/access/login/utils/factory/access-factory.util';
 import { SupabaseService } from '@core/services/supabase.service';
 
 @Component({
@@ -37,10 +37,12 @@ export class SignInComponent implements OnInit {
 
   public usernameError = computed<string>(() => {
 
-    if (this.username.valid) return ""; 
+    const errors = this.username.errors;
+
+    if (this.username.valid && !errors) return ""; 
       
-    switch (this.username.errors) {
-      case ["required"]:
+    switch (true) {
+      case errors?.["required"]:
         return "Username is required.";
 
       default:
@@ -49,10 +51,13 @@ export class SignInComponent implements OnInit {
   });
 
   public passwordError = computed<string>(() => {
-    if (this.password.valid) return "";
+
+    const errors = this.password.errors;
+
+    if (this.password.valid && !errors) return "";
       
-    switch (this.password.errors) {
-      case ["required"]:
+    switch (true) {
+      case errors?.["required"]:
         return "Password is required.";
 
       default:

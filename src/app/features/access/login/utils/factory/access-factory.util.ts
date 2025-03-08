@@ -4,8 +4,10 @@ import { SignInDTO, SignInForm } from "@features/access/login/models/sign-in.mod
 import { SignUpDTO, SignUpForm } from '@features/access/login/models/sign-up.model';
 
 export interface AccessForm {
-  dto         : SignInDTO | SignUpDTO;
-  form        : FormGroup;
+  dto               : SignInDTO | SignUpDTO;
+  form              : FormGroup;
+  onStatusChanges  ?: Signal<any>;
+  onValueChanges   ?: Signal<any>;
 
   validate(cb: (param?: any) => void)  : void;
 }

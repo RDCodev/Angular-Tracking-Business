@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { AccessForm } from "../utils/access-factory.util";
+import { AccessForm } from "../utils/factory/access-factory.util";
 
 export interface RawSignIn {
   username: string | undefined;
