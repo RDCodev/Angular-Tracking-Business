@@ -36,8 +36,8 @@ export class SignUpForm implements AccessForm {
 
   private init() {
     this.form = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
