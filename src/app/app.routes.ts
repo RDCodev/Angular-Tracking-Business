@@ -3,7 +3,7 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: 'access',
-    title: 'Access',
+    title: 'Sign In',
     loadComponent: () => import('@features/access/access.component').then(mod => mod.AccessComponent),
   }, {
     path: 'profile',
