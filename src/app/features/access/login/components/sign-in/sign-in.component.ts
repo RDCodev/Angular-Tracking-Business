@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, EnvironmentInjector, inject, OnInit, runInInjectionContext, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, EnvironmentInjector, inject, OnInit, runInInjectionContext, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,25 +29,41 @@ import { SupabaseService } from '@core/services/supabase.service';
 })
 export class SignInComponent implements OnInit {
 
-  private readonly envInjector = inject(EnvironmentInjector);
-  private readonly _supabase = inject(SupabaseService);
+  private readonly envInjector  = inject(EnvironmentInjector);
+  private readonly supabase     = inject(SupabaseService);
 
-  private accessForm!: AccessForm;
-  
-  public signInForm!: FormGroup;
-  public singInSubmit!: any;
-  public signInFormChanges!: Signal<void>;
+  private accessForm  !: AccessForm;
+  public signInForm   !: FormGroup;
 
-  constructor() { 
-    effect(() => {
-      console.log('[Effect] - ', this.signInFormChanges());
-    });
+  public usernameError = computed<string>(() => {
 
-    console.log(this._supabase);
-  }
+    if (this.username.valid) return ""; 
+      
+    switch (this.username.errors) {
+      case ["required"]:
+        return "Username is required.";
+
+      default:
+        return "Username is invalid.";
+    }
+  });
+
+  public passwordError = computed<string>(() => {
+    if (this.password.valid) return "";
+      
+    switch (this.password.errors) {
+      case ["required"]:
+        return "Password is required.";
+
+      default:
+        return "Password is invalid.";
+    }
+  });
+
+  constructor() { }
   
   ngOnInit(): void {    
-    this.initializeForm();
+    this.initAccessForm(new SignInFormCreator());
   }
 
   get username() {
@@ -58,21 +74,16 @@ export class SignInComponent implements OnInit {
     return this.signInForm.controls['password'];
   }
 
-  private initializeForm() {
-    this.initAccessForm(new SignInFormCreator());
-  }
-
   private initAccessForm(creator: FormCreator) {
     runInInjectionContext(this.envInjector, () => {
-      this.accessForm = creator.createForm();
 
+      this.accessForm = creator.createForm();
       this.signInForm = this.accessForm.form;
-      this.signInFormChanges = toSignal(this.signInForm.valueChanges);
 
     });
   }
 
   public submit() {
-    this.accessForm.validate((param: any) => console.log('[Submit] - ', param));
+    
   }
 }

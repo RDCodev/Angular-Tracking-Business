@@ -7,7 +7,7 @@
       formControlName="username"
     />
     @if(username.invalid) {
-      <mat-error>Invalid <strong>username</strong></mat-error>
+      <mat-error>{{ usernameError() }}</mat-error>
     }
   </mat-form-field>
   <mat-form-field appearance="outline">
@@ -18,7 +18,7 @@
       formControlName="password"
     />
     @if(username.invalid) {
-      <mat-error>Invalid <strong>password</strong></mat-error>
+      <mat-error>{{ passwordError() }}</mat-error>
     }
   </mat-form-field>
   <div class="form__helpers">
