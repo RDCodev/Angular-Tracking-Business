@@ -27,8 +27,8 @@ export class SignUpDTO implements RawSignUp {
 
 export class SignUpForm implements AccessForm {
 
-  dto!: SignUpDTO;
-  form!: FormGroup;
+  dto   !: SignUpDTO;
+  form  !: FormGroup;
 
   constructor() {
     this.init();
@@ -39,7 +39,8 @@ export class SignUpForm implements AccessForm {
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required])
     });
   }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnInit, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -29,6 +29,45 @@ export class SignUpComponent implements OnInit {
 
   public hide = signal(true);
 
+  public usernameError = computed<string>(() => {
+
+    if(this.username.valid) return "";
+
+    switch(this.username.errors) {
+      case ["required"]:
+        return "Username is required";
+      
+      default:
+        return "Username is invalid";
+    }
+
+  });
+
+  public passwordError = computed<string>(() => {
+
+    if(this.password.valid) return "";
+
+    switch(this.password.errors) {
+      case ["required"]:
+        return "Password is required";
+      
+      default:
+        return "Password is invalid";
+    }
+  });
+
+  public confirmPasswordError = computed<string>(() => {
+    if(this.confirmPassword.valid) return "";
+
+    switch(this.confirmPassword.errors) {
+      case ["required"]:
+        return "Confirm Password is required";
+      
+      default:
+        return "Confirm Password is invalid";
+    }
+  })
+
   constructor() { }
 
   ngOnInit(): void {
@@ -53,6 +92,10 @@ export class SignUpComponent implements OnInit {
 
   get password() {
     return this.signUpForm.controls["password"];
+  }
+
+  get confirmPassword() {
+    return this.signUpForm.controls["confirmPassword"];
   }
 
   private initAccessForm(creator: FormCreator) {
