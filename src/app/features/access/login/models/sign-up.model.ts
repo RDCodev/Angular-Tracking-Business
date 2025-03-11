@@ -1,27 +1,30 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AccessForm } from "../utils/factory/access-factory.util";
 import { validatePasswords } from "../utils/validators/validate-password";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { PartialBy } from "@core/types/utils.types";
 
 export interface RawSignUp {
+  email: string;
+  username: string;
+  password: string;
   firstName: string | undefined;
   lastName: string | undefined;
-  username: string | undefined;
-  password: string | undefined;
 }
 
 export class SignUpDTO implements RawSignUp {
 
+  public username: string;
+  public email: string;
+  public password: string;
   public firstName: string | undefined;
   public lastName: string | undefined;
-  public username: string | undefined;
-  public password: string | undefined;
 
-  constructor(options: Partial<RawSignUp>) {
+  constructor(options: PartialBy<RawSignUp, 'firstName' | 'lastName'>) {
+    this.username = options.username;
+    this.email = options.email;
+    this.password = options.password;
     this.firstName = options.firstName;
     this.lastName = options.lastName;
-    this.username = options.username;
-    this.password = options.password;
   }
   
 }
@@ -39,22 +42,12 @@ export class SignUpForm implements AccessForm {
     this.form = new FormGroup({
         firstName: new FormControl(''),
         lastName: new FormControl(''),
-        username: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
-        password: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
-        confirmPassword: new FormControl('', { validators: [Validators.required], updateOn: 'change' })
+        username: new FormControl('', { validators: [Validators.required] }),
+        password: new FormControl('', { validators: [Validators.required]}),
+        confirmPassword: new FormControl('', { validators: [Validators.required] })
       },
-      {
-        validators: validatePasswords
-      }
+      { validators: validatePasswords }
     );
-  }
-
-  get onStatusChanges() {
-    return toSignal(this.form.statusChanges)
-  }
-
-  get onValueChanges() {
-    return toSignal(this.form.valueChanges)
   }
 
   public validate(): void {

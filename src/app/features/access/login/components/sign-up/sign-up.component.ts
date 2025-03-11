@@ -6,6 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { SupabaseService } from '@core/services/supabase.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/access-factory.util';
 
 @Component({
@@ -25,13 +28,13 @@ import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/
 })
 export class SignUpComponent implements OnInit {
 
-  private readonly envInjector = inject(EnvironmentInjector);
+  private readonly _sackBar = inject(MatSnackBar);
+  private readonly supabase = inject(SupabaseService);
 
-  private accessForm!: AccessForm;
+  public accessForm!: AccessForm;
   public signUpForm !: FormGroup;
-
-  public hide = signal(true);
-
+  public confirmPassChanges !: Signal<any>;
+  
   public usernameError = computed<string>(() => {
 
     const errors = this.username.errors;
@@ -65,6 +68,8 @@ export class SignUpComponent implements OnInit {
 
   public confirmPasswordError = computed<string>(() => {
 
+    if (!this.confirmPassChanges()) return "";
+
     const errors = this.confirmPassword.errors;
     const isValid = this.confirmPassword.valid;
     
@@ -82,9 +87,11 @@ export class SignUpComponent implements OnInit {
     }
   })
 
-  ngOnInit(): void {
+  constructor() {
     this.initAccessForm(new SignUpFormCreator());
   }
+
+  ngOnInit(): void { }
 
   get firstName() {
     return this.signUpForm.controls["firstName"];
@@ -106,16 +113,19 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.controls["confirmPassword"];
   }
 
+  get confirmPasswordChanges() {
+    return toSignal(this.confirmPassword.valueChanges);
+  }
+
   private initAccessForm(creator: FormCreator) {
-    runInInjectionContext(this.envInjector, () => {
-      this.accessForm = creator.createForm();
-      this.signUpForm = this.accessForm.form;
-    })
+
+    this.accessForm = creator.createForm();
+
+    this.signUpForm = this.accessForm.form;
+    this.confirmPassChanges = this.confirmPasswordChanges;
   }
 
-  public onHidePassword(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
+  public onSubmit() {
+    console.log('[Submit] - ', this.signUpForm.value);
   }
-
 }
