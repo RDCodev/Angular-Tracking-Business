@@ -1,29 +1,29 @@
-import { Signal } from "@angular/core";
+
 import { FormGroup } from "@angular/forms";
-import { SignInDTO, SignInForm } from "@features/access/login/models/sign-in.model";
-import { SignUpDTO, SignUpForm } from '@features/access/login/models/sign-up.model';
+import { SignInForm } from "@features/access/login/models/sign-in.model";
+import { SignUpForm } from '@features/access/login/models/sign-up.model';
+import { AuthResponse } from "@supabase/supabase-js";
 
-export interface AccessForm {
-  dto               : SignInDTO | SignUpDTO;
-  form              : FormGroup;
-  onStatusChanges  ?: Signal<any>;
-  onValueChanges   ?: Signal<any>;
+export interface AccessForm<T> {
+  dto     : T;
+  form    : FormGroup;
 
-  validate(cb: (param?: any) => void)  : void;
+  validate(cb?: (dto: T) => void): void;
+  submit(cb: (res: AuthResponse) => void): void;
 }
 
-export abstract class FormCreator {
-  abstract createForm(): AccessForm
+export abstract class FormCreator<T>{
+  abstract createForm(): T;
 }
 
-export class SignInFormCreator extends FormCreator {
-  createForm(): AccessForm {
-    return new SignInForm();
+export class SignInFormCreator extends FormCreator<SignInForm> {
+  createForm() {
+    return new SignInForm(); 
   }
 }
 
-export class SignUpFormCreator extends FormCreator {
-  createForm(): AccessForm {
+export class SignUpFormCreator extends FormCreator<SignUpForm> {
+  createForm() {
     return new SignUpForm();
   }
 }
