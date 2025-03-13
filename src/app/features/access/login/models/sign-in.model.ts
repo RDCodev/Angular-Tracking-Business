@@ -2,27 +2,27 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AccessForm } from "../utils/factory/access-factory.util";
 
 export interface RawSignIn {
-  username: string | undefined;
-  password: string | undefined;
-  rememberMe: boolean;
+  username    : string;
+  password    : string;
+  rememberMe  : boolean;
 }
 
 export class SignInDTO implements RawSignIn {
   
-  public username: string | undefined;
-  public password: string | undefined;
-  public rememberMe: boolean = false;
+  public username     : string;
+  public password     : string;
+  public rememberMe   : boolean = false;
 
-  constructor(options: Partial<RawSignIn>) {
-    this.username = options.username;
-    this.password = options.password;
-    this.rememberMe = options.rememberMe || false;
+  constructor(options: RawSignIn) {
+    this.username     = options.username;
+    this.password     = options.password;
+    this.rememberMe   = options.rememberMe || false;
   }
 }
 
-export class SignInForm implements AccessForm {
+export class SignInForm<T = SignInDTO> implements AccessForm<T> {
 
-  dto   !: SignInDTO;
+  dto   !: T;
   form  !: FormGroup;
 
   constructor() {
@@ -35,14 +35,24 @@ export class SignInForm implements AccessForm {
     const passwordValidators = [Validators.required];
 
     this.form = new FormGroup({
-      username: new FormControl('', { validators: usernameValidators, updateOn: 'change' }),
-      password: new FormControl('', { validators: passwordValidators, updateOn: 'blur' }),
-      rememberMe: new FormControl(false),
+      username: new FormControl<string>('', { 
+        validators: usernameValidators, 
+        updateOn: 'change' 
+      }),
+      password: new FormControl<string>('', { 
+        validators: passwordValidators, 
+        updateOn: 'blur' 
+      }),
+      rememberMe: new FormControl<boolean>(false),
     });
 
   }
 
-  public validate(cb: (param: SignInDTO) => void) {
-    cb(new SignInDTO(this.form.value as SignInDTO));
+  public validate(cb?: (param: T) => void) {
+    cb && cb(new SignInDTO(this.form.value) as T);
+  }
+
+  public submit(): void {
+      
   }
 }

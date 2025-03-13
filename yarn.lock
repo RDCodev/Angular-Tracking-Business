@@ -8598,6 +8598,13 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ngx-localstorage@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-localstorage/-/ngx-localstorage-6.0.0.tgz#778ea189a8c17cb39c12dbfcfbce17e1ebbdf0ea"
+  integrity sha512-jSO8j+rXTUjJnjDME1pzt26IyAKt1/bvcnJuo2BwSxwiArCgrc6oUj8MuMxQ+bIBuZoGufkem/e+QTbJcUeMSA==
+  dependencies:
+    tslib "^2.3.0"
+
 node-abort-controller@^3.0.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/node-abort-controller/-/node-abort-controller-3.1.1.tgz#a94377e964a9a37ac3976d848cb5c765833b8548"

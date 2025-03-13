@@ -9,6 +9,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { AccessForm, FormCreator, SignInFormCreator } from '@features/access/login/utils/factory/access-factory.util';
 import { SupabaseService } from '@core/services/supabase.service';
+import { SignInDTO, SignInForm } from '../../models/sign-in.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -31,7 +32,7 @@ export class SignInComponent implements OnInit {
   private readonly envInjector  = inject(EnvironmentInjector);
   private readonly supabase     = inject(SupabaseService);
 
-  private accessForm  !: AccessForm;
+  private accessForm  !: AccessForm<SignInDTO>;
   public signInForm   !: FormGroup;
 
   public usernameError = computed<string>(() => {
@@ -64,11 +65,11 @@ export class SignInComponent implements OnInit {
     }
   });
 
-  constructor() { }
-  
-  ngOnInit(): void {    
+  constructor() { 
     this.initAccessForm(new SignInFormCreator());
   }
+  
+  ngOnInit(): void { }
 
   get username() {
     return this.signInForm.controls['username'];
@@ -78,16 +79,15 @@ export class SignInComponent implements OnInit {
     return this.signInForm.controls['password'];
   }
 
-  private initAccessForm(creator: FormCreator) {
-    runInInjectionContext(this.envInjector, () => {
+  private initAccessForm(creator: FormCreator<SignInForm>) {
+    this.accessForm = creator.createForm();
 
-      this.accessForm = creator.createForm();
-      this.signInForm = this.accessForm.form;
-
-    });
+    this.signInForm = this.accessForm.form;
   }
 
-  public submit() {
-    
+  public onSubmit() {
+    this.accessForm.validate((dto) => {
+      console.log(dto)
+    })
   }
 }

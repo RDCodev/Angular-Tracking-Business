@@ -10,6 +10,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { SupabaseService } from '@core/services/supabase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/access-factory.util';
+import { SignUpDTO, SignUpForm } from '../../models/sign-up.model';
 
 @Component({
   selector: 'app-sign-up',
@@ -28,11 +29,12 @@ import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/
 })
 export class SignUpComponent implements OnInit {
 
-  private readonly _sackBar = inject(MatSnackBar);
+  private readonly snackBar = inject(MatSnackBar);
   private readonly supabase = inject(SupabaseService);
 
-  public accessForm!: AccessForm;
+  public accessForm !: AccessForm<SignUpDTO>;
   public signUpForm !: FormGroup;
+
   public confirmPassChanges !: Signal<any>;
   
   public usernameError = computed<string>(() => {
@@ -117,7 +119,7 @@ export class SignUpComponent implements OnInit {
     return toSignal(this.confirmPassword.valueChanges);
   }
 
-  private initAccessForm(creator: FormCreator) {
+  private initAccessForm(creator: FormCreator<SignUpForm>) {
 
     this.accessForm = creator.createForm();
 
@@ -126,6 +128,8 @@ export class SignUpComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log('[Submit] - ', this.signUpForm.value);
+    this.accessForm.submit(({ data, error }) => {
+      console.log(data, error)
+    });
   }
 }
