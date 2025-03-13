@@ -7,13 +7,10 @@ export const validatePasswords: ValidatorFn = (control: AbstractControl): Valida
 
     if (!password || !confirmPassword) return null;
     
-    if (password.value !== confirmPassword.value) {
+    if (password.value === confirmPassword.value) return null 
 
-      confirmPassword.setErrors({ passwordMismatch: true });
+    confirmPassword.setErrors({ passwordMismatch: true });
 
-      return { passwordMismatch: true }
-    };
-    
-    return null;
+    return { passwordMismatch: true }
 }
 
