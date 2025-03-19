@@ -86,7 +86,7 @@ export class SignInComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.accessForm.validate((dto) => {
+    this.accessForm.submit((dto) => {
       console.log(dto)
     })
   }

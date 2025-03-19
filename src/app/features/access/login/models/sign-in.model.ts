@@ -1,5 +1,7 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AccessForm } from "../utils/factory/access-factory.util";
+import { inject } from "@angular/core";
+import { SupabaseService } from "@core/services/supabase.service";
 
 export interface RawSignIn {
   username    : string;
@@ -22,14 +24,14 @@ export class SignInDTO implements RawSignIn {
 
 export class SignInForm<T = SignInDTO> implements AccessForm<T> {
 
+  private _supabase = inject(SupabaseService);
+
   dto   !: T;
   form  !: FormGroup;
 
-  constructor() {
-    this.initialize();
-  }
+  constructor() { this.init();  }
 
-  private initialize() {
+  private init() {
 
     const usernameValidators = [Validators.required];
     const passwordValidators = [Validators.required];
@@ -52,7 +54,7 @@ export class SignInForm<T = SignInDTO> implements AccessForm<T> {
     cb && cb(new SignInDTO(this.form.value) as T);
   }
 
-  public submit(): void {
-      
+  public submit() {
+    return this._supabase.signInUser()
   }
 }

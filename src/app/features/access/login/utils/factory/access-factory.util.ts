@@ -8,8 +8,8 @@ export interface AccessForm<T> {
   dto     : T;
   form    : FormGroup;
 
-  validate(cb?: (dto: T) => void): void;
-  submit(cb: (res: AuthResponse) => void): void;
+  submit(cb?: (res: AuthResponse) => void): Promise<string>;
+  
 }
 
 export abstract class FormCreator<T>{

@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlOptions, FormGroup, Validators } from '@angular/forms';
 import { AccessForm } from '../utils/factory/access-factory.util';
 import { validatePasswords } from '../utils/validators/validate-password';
 import { inject } from '@angular/core';
@@ -27,7 +27,25 @@ export class SignUpDTO implements RawSignUp {
     this.email      = options.email;
     this.password   = options.password;
   }
+}
 
+const signUpControls: Record<string, FormControlOptions> = {
+  "username": {
+    validators: [Validators.required],
+    nonNullable: true
+  },
+  "password": {
+    validators: [Validators.required],
+    nonNullable: true,
+  },
+  "email": {
+    validators: [Validators.required, Validators.email],
+    nonNullable: true,
+  },
+  "confirmPassword": {
+    validators: [Validators.required],
+    nonNullable: true,
+  }
 }
 
 export class SignUpForm<T = SignUpDTO> implements AccessForm<T> {
@@ -40,26 +58,15 @@ export class SignUpForm<T = SignUpDTO> implements AccessForm<T> {
   constructor() { this.init(); }
 
   private init() {
+
     this.form = new FormGroup(
       {
         firstName: new FormControl<string | null>(null),
         lastName: new FormControl<string | null>(null),
-        username: new FormControl<string>('', {
-          validators: [Validators.required],
-          nonNullable: true,
-        }),
-        password: new FormControl<string>('', {
-          validators: [Validators.required],
-          nonNullable: true,
-        }),
-        email: new FormControl<string>('', {
-          validators: [Validators.required, Validators.email],
-          nonNullable: true,
-        }),
-        confirmPassword: new FormControl<string>('', {
-          validators: [Validators.required],
-          nonNullable: true,
-        }),
+        username: new FormControl<string>('', signUpControls["username"]),
+        password: new FormControl<string>('', signUpControls["password"]),
+        email: new FormControl<string>('', signUpControls["email"]),
+        confirmPassword: new FormControl<string>('', signUpControls["confirmPassword"]),
       },
       { validators: validatePasswords }
     );
@@ -69,7 +76,7 @@ export class SignUpForm<T = SignUpDTO> implements AccessForm<T> {
     cb && cb(new SignUpDTO(this.form.value) as T);
   }
 
-  public submit(cb: (res: AuthResponse) => void) {
-    this._supabase.createUser(this.form.value)
+  public submit() {
+    return this._supabase.signUpUser(this.form.value)
   }
 }

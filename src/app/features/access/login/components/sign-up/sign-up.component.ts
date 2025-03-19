@@ -128,8 +128,8 @@ export class SignUpComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.accessForm.submit(({ data, error }) => {
-      console.log(data, error)
-    });
+    this.accessForm.submit()
+      .then((msg) => console.log(msg))
+      .catch((err) => console.log(err))
   }
 }
