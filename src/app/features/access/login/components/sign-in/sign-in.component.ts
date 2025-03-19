@@ -12,7 +12,7 @@ import { SupabaseService } from '@core/services/supabase.service';
 import { SignInDTO, SignInForm } from '../../models/sign-in.model';
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'kmx-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

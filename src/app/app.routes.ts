@@ -4,11 +4,6 @@ import { AccessComponent } from '@features/access/access.component';
 
 export const appRoutes: Route[] = [
   {
-    path: 'home',
-    title: 'Home',
-    loadComponent: () => import('@features/home/home.component').then(mod => mod.HomeComponent)
-  },
-  {
     path: '',
     component: AccessComponent,
     children: [
@@ -23,6 +18,11 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('@features/access/login/components/sign-up/sign-up.component').then(mod => mod.SignUpComponent)
       },
     ]
+  },
+  {
+    path: 'home',
+    title: 'Home',
+    loadComponent: () => import('@features/home/home.component').then(mod => mod.HomeComponent)
   },
   {
     path: 'profile',

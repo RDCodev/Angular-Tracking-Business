@@ -13,7 +13,7 @@ import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/
 import { SignUpDTO, SignUpForm } from '../../models/sign-up.model';
 
 @Component({
-  selector: 'app-sign-up',
+  selector: 'kmx-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

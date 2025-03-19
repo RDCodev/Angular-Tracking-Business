@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
-    selector: 'app-profile',
+    selector: 'kmx-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -18,7 +18,7 @@ const accessTabs: TabRoute[] = [
 ]
 
 @Component({
-  selector: 'app-access',
+  selector: 'kmx-access',
   templateUrl: './access.component.html',
   styleUrls: ['./access.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
