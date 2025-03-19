@@ -7,12 +7,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { AccessForm, FormCreator, SignInFormCreator } from '@features/access/login/utils/factory/access-factory.util';
+import { AuthForm, FormCreator, SignInFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
 import { SupabaseService } from '@core/services/supabase.service';
-import { SignInDTO, SignInForm } from '../../models/sign-in.model';
+import { SignInDTO, SignInForm } from '@features/access/auth/models/sign-in.model';
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'kmx-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
   private readonly envInjector  = inject(EnvironmentInjector);
   private readonly supabase     = inject(SupabaseService);
 
-  private accessForm  !: AccessForm<SignInDTO>;
+  private accessForm  !: AuthForm<SignInDTO>;
   public signInForm   !: FormGroup;
 
   public usernameError = computed<string>(() => {
@@ -86,7 +86,7 @@ export class SignInComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.accessForm.validate((dto) => {
+    this.accessForm.submit((dto) => {
       console.log(dto)
     })
   }

@@ -7,13 +7,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { SupabaseService } from '@core/services/supabase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/access-factory.util';
-import { SignUpDTO, SignUpForm } from '../../models/sign-up.model';
+import { AuthForm, FormCreator, SignUpFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
+import { SignUpDTO, SignUpForm } from '@features/access/auth/models/sign-up.model';
+import { AuthService } from '@features/access/auth/services/auth.service';
 
 @Component({
-  selector: 'app-sign-up',
+  selector: 'kmx-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,9 +30,9 @@ import { SignUpDTO, SignUpForm } from '../../models/sign-up.model';
 export class SignUpComponent implements OnInit {
 
   private readonly snackBar = inject(MatSnackBar);
-  private readonly supabase = inject(SupabaseService);
+  private readonly authService = inject(AuthService);
 
-  public accessForm !: AccessForm<SignUpDTO>;
+  public accessForm !: AuthForm<SignUpDTO>;
   public signUpForm !: FormGroup;
 
   public confirmPassChanges !: Signal<any>;
@@ -128,8 +128,8 @@ export class SignUpComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.accessForm.submit(({ data, error }) => {
-      console.log(data, error)
-    });
+    this.accessForm.submit()
+      .then((msg) => console.log(msg))
+      .catch((err) => console.log(err))
   }
 }

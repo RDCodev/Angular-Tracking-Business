@@ -1,5 +1,8 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { AccessForm } from "../utils/factory/access-factory.util";
+import { AuthForm } from "../utils/factory/auth-factory.util";
+import { inject } from "@angular/core";
+import { SupabaseService } from "@core/services/supabase.service";
+import { AuthService } from "../services/auth.service";
 
 export interface RawSignIn {
   username    : string;
@@ -20,16 +23,16 @@ export class SignInDTO implements RawSignIn {
   }
 }
 
-export class SignInForm<T = SignInDTO> implements AccessForm<T> {
+export class SignInForm<T = SignInDTO> implements AuthForm<T> {
+
+  private auth = inject(AuthService);
 
   dto   !: T;
   form  !: FormGroup;
 
-  constructor() {
-    this.initialize();
-  }
+  constructor() { this.init();  }
 
-  private initialize() {
+  private init() {
 
     const usernameValidators = [Validators.required];
     const passwordValidators = [Validators.required];
@@ -48,11 +51,7 @@ export class SignInForm<T = SignInDTO> implements AccessForm<T> {
 
   }
 
-  public validate(cb?: (param: T) => void) {
-    cb && cb(new SignInDTO(this.form.value) as T);
-  }
-
-  public submit(): void {
-      
+  public submit() {
+    return this.auth.signInUser()
   }
 }
