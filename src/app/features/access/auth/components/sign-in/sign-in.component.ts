@@ -9,7 +9,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthForm, FormCreator, SignInFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
 import { SupabaseService } from '@core/services/supabase.service';
-import { SignInDTO, SignInForm } from '../../models/sign-in.model';
+import { SignInDTO, SignInForm } from '@features/access/auth/models/sign-in.model';
 
 @Component({
   selector: 'kmx-sign-in',

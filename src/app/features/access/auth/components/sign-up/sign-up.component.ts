@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SupabaseService } from '@core/services/supabase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthForm, FormCreator, SignUpFormCreator } from '../../utils/factory/auth-factory.util';
-import { SignUpDTO, SignUpForm } from '../../models/sign-up.model';
+import { AuthForm, FormCreator, SignUpFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
+import { SignUpDTO, SignUpForm } from '@features/access/auth/models/sign-up.model';
 
 @Component({
   selector: 'kmx-sign-up',
