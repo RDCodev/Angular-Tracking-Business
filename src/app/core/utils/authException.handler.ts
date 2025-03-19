@@ -10,11 +10,11 @@ export const authMessagesError: SupabaseErrorCodes = {
   "user_not_found"        : "User not found"
 };
 
-export class AuthHandlerException {
+export class AuthExceptionHandler {
 
   private _authError!: AuthError;
 
-  constructor() {}
+  constructor() { }
 
   set authError(error: AuthError) {
     this._authError = error;
@@ -24,11 +24,7 @@ export class AuthHandlerException {
     return this._authError;
   }
 
-  public notifyErrorToUser() {
+  public errorMessage() {
     return this.authError.code && authMessagesError[this.authError.code] || "Unknown Error";
-  }
-
-  public messageError() {
-    return this.authError && this.authError.message;
   }
 }

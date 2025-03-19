@@ -7,10 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { SupabaseService } from '@core/services/supabase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthForm, FormCreator, SignUpFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
 import { SignUpDTO, SignUpForm } from '@features/access/auth/models/sign-up.model';
+import { AuthService } from '@features/access/auth/services/auth.service';
 
 @Component({
   selector: 'kmx-sign-up',
@@ -30,7 +30,7 @@ import { SignUpDTO, SignUpForm } from '@features/access/auth/models/sign-up.mode
 export class SignUpComponent implements OnInit {
 
   private readonly snackBar = inject(MatSnackBar);
-  private readonly supabase = inject(SupabaseService);
+  private readonly authService = inject(AuthService);
 
   public accessForm !: AuthForm<SignUpDTO>;
   public signUpForm !: FormGroup;

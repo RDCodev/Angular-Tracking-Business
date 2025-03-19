@@ -2,8 +2,7 @@ import { FormControl, FormControlOptions, FormGroup, Validators } from '@angular
 import { AuthForm } from '../utils/factory/auth-factory.util';
 import { validatePasswords } from '../utils/validators/validate-password';
 import { inject } from '@angular/core';
-import { SupabaseService } from '@core/services/supabase.service';
-import { AuthResponse } from '@supabase/supabase-js';
+import { AuthService } from '../services/auth.service';
 
 export interface RawSignUp {
   firstName  ?: string | null;
@@ -50,7 +49,7 @@ const signUpControls: Record<string, FormControlOptions> = {
 
 export class SignUpForm<T = SignUpDTO> implements AuthForm<T> {
 
-  private _supabase = inject(SupabaseService)
+  private auth = inject(AuthService)
 
   dto   !: T;
   form  !: FormGroup;
@@ -72,11 +71,7 @@ export class SignUpForm<T = SignUpDTO> implements AuthForm<T> {
     );
   }
 
-  public validate(cb?: (param: T) => void) {
-    cb && cb(new SignUpDTO(this.form.value) as T);
-  }
-
   public submit() {
-    return this._supabase.signUpUser(this.form.value)
+    return this.auth.signUpUser()
   }
 }
