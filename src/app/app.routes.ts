@@ -1,13 +1,37 @@
 import { Route } from '@angular/router';
+import { NotFoundPage } from './pages/404/404.component';
+import { AccessComponent } from '@features/access/access.component';
 
 export const appRoutes: Route[] = [
   {
-    path: 'access',
-    title: 'Sign In',
-    loadComponent: () => import('@features/access/access.component').then(mod => mod.AccessComponent),
-  }, {
+    path: 'home',
+    title: 'Home',
+    loadComponent: () => import('@features/home/home.component').then(mod => mod.HomeComponent)
+  },
+  {
+    path: '',
+    component: AccessComponent,
+    children: [
+      {
+        path: 'sign-in',
+        title: 'Sign In',
+        loadComponent: () => import('@features/access/login/components/sign-in/sign-in.component').then(mod => mod.SignInComponent)
+      },
+      {
+        path: 'sign-up',
+        title: 'Sign Up',
+        loadComponent: () => import('@features/access/login/components/sign-up/sign-up.component').then(mod => mod.SignUpComponent)
+      },
+    ]
+  },
+  {
     path: 'profile',
     title: 'Profile',
     loadComponent: () => import('@features/profile/profile.component').then(mod => mod.ProfileComponent)
+  },
+  {
+    path: '**',
+    title: 'Not Found',
+    component: NotFoundPage
   }
 ];

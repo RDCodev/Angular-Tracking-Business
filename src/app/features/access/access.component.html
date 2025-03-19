@@ -9,7 +9,41 @@
     class="container__wrapper"
   >
     <div class="container__block">
-      <app-login/>
+      <div class="access__wrapper">
+        <div class="access__logo">
+          <img src="https://ucarecdn.com/5330ef77-7ab5-49bf-805f-d00e10273cc3/" width="80" alt="">
+        </div>
+        <div class="access__container">
+          <div class="access__header">
+            <h1 class="access__title">{{ activeTab.name }}</h1>
+            <p class="access__description">Dolor dolor lobortis et iriure eros. </p>
+          </div>
+          <div class="access__content">
+            <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+              @for (tab of tabs; track tab.name) {
+                <a 
+                  mat-tab-link
+                  tabindex="-1"
+                  [routerLink]="tab.link"
+                  [ariaLabel]="tab.name"
+                  [active]="activeTab === tab"
+                  (click)="activeTab = tab"
+                  (keyup)="activeTab = tab"
+                >
+                  {{ tab.name }}
+                </a>
+              }
+            </nav>
+            <mat-tab-nav-panel #tabPanel/>
+            <router-outlet/>
+          </div> 
+          <div class="access__footer">
+            <small class="footer__text">Don't have an account? 
+              <a routerLink="/sign-up" class="footer__link">Sign Up</a>
+            </small>
+          </div>   
+        </div>
+      </div>
     </div>
     <div 
       [ngClass]="{        
