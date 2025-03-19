@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { AuthHandlerException } from "@core/models/authHandlerException.models";
-import { SignUpDTO } from "@features/access/login/models/sign-up.model";
+import { AuthHandlerException } from "@core/utils/authException.handler";
+import { SignUpDTO } from "@features/access/auth/models/sign-up.model";
 import { AuthError, AuthSession, createClient, SupabaseClient } from "@supabase/supabase-js";
 
 const NG_APP_SUPABASE_ANON_PUBLIC_KEY = import.meta.env.NG_APP_SUPABASE_ANON_PUBLIC_KEY

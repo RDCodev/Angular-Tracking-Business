@@ -1,5 +1,5 @@
 import { FormControl, FormControlOptions, FormGroup, Validators } from '@angular/forms';
-import { AccessForm } from '../utils/factory/access-factory.util';
+import { AuthForm } from '../utils/factory/auth-factory.util';
 import { validatePasswords } from '../utils/validators/validate-password';
 import { inject } from '@angular/core';
 import { SupabaseService } from '@core/services/supabase.service';
@@ -48,7 +48,7 @@ const signUpControls: Record<string, FormControlOptions> = {
   }
 }
 
-export class SignUpForm<T = SignUpDTO> implements AccessForm<T> {
+export class SignUpForm<T = SignUpDTO> implements AuthForm<T> {
 
   private _supabase = inject(SupabaseService)
 

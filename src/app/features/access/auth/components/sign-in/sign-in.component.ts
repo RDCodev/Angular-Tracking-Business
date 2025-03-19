@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { AccessForm, FormCreator, SignInFormCreator } from '@features/access/login/utils/factory/access-factory.util';
+import { AuthForm, FormCreator, SignInFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
 import { SupabaseService } from '@core/services/supabase.service';
 import { SignInDTO, SignInForm } from '../../models/sign-in.model';
 
@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
   private readonly envInjector  = inject(EnvironmentInjector);
   private readonly supabase     = inject(SupabaseService);
 
-  private accessForm  !: AccessForm<SignInDTO>;
+  private accessForm  !: AuthForm<SignInDTO>;
   public signInForm   !: FormGroup;
 
   public usernameError = computed<string>(() => {

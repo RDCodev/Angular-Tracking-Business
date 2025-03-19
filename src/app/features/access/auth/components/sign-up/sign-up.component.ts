@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SupabaseService } from '@core/services/supabase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AccessForm, FormCreator, SignUpFormCreator } from '../../utils/factory/access-factory.util';
+import { AuthForm, FormCreator, SignUpFormCreator } from '../../utils/factory/auth-factory.util';
 import { SignUpDTO, SignUpForm } from '../../models/sign-up.model';
 
 @Component({
@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
   private readonly snackBar = inject(MatSnackBar);
   private readonly supabase = inject(SupabaseService);
 
-  public accessForm !: AccessForm<SignUpDTO>;
+  public accessForm !: AuthForm<SignUpDTO>;
   public signUpForm !: FormGroup;
 
   public confirmPassChanges !: Signal<any>;

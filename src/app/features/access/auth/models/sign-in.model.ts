@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { AccessForm } from "../utils/factory/access-factory.util";
+import { AuthForm } from "../utils/factory/auth-factory.util";
 import { inject } from "@angular/core";
 import { SupabaseService } from "@core/services/supabase.service";
 
@@ -22,7 +22,7 @@ export class SignInDTO implements RawSignIn {
   }
 }
 
-export class SignInForm<T = SignInDTO> implements AccessForm<T> {
+export class SignInForm<T = SignInDTO> implements AuthForm<T> {
 
   private _supabase = inject(SupabaseService);
 

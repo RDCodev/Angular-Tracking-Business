@@ -1,10 +1,10 @@
 
 import { FormGroup } from "@angular/forms";
-import { SignInForm } from "@features/access/login/models/sign-in.model";
-import { SignUpForm } from '@features/access/login/models/sign-up.model';
+import { SignInForm } from "@features/access/auth/models/sign-in.model";
+import { SignUpForm } from '@features/access/auth/models/sign-up.model';
 import { AuthResponse } from "@supabase/supabase-js";
 
-export interface AccessForm<T> {
+export interface AuthForm<T> {
   dto     : T;
   form    : FormGroup;
 

@@ -10,12 +10,12 @@ export const appRoutes: Route[] = [
       {
         path: 'sign-in',
         title: 'Sign In',
-        loadComponent: () => import('@features/access/login/components/sign-in/sign-in.component').then(mod => mod.SignInComponent)
+        loadComponent: () => import('@features/access/auth/components/sign-in/sign-in.component').then(mod => mod.SignInComponent)
       },
       {
         path: 'sign-up',
         title: 'Sign Up',
-        loadComponent: () => import('@features/access/login/components/sign-up/sign-up.component').then(mod => mod.SignUpComponent)
+        loadComponent: () => import('@features/access/auth/components/sign-up/sign-up.component').then(mod => mod.SignUpComponent)
       },
     ]
   },
