@@ -3,6 +3,7 @@ import { AuthForm } from '../utils/factory/auth-factory.util';
 import { validatePasswords } from '../utils/validators/validate-password';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { SignInDTO } from './sign-in.model';
 
 export interface RawSignUp {
   firstName  ?: string | null;
@@ -72,6 +73,6 @@ export class SignUpForm<T = SignUpDTO> implements AuthForm<T> {
   }
 
   public submit() {
-    return this.auth.signUpUser()
+    return this.auth.signUpUser(new SignUpDTO(this.form.value))
   }
 }
