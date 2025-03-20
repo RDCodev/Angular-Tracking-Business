@@ -1,15 +1,5 @@
 import { AuthError } from '@supabase/supabase-js';
 
-export type SupabaseErrorCodes = Partial<Record<Extract<AuthError["code"], String>, string>>;
-
-export const authMessagesError: SupabaseErrorCodes = {
-  "email_exists"          : "Email already register",
-  "email_address_invalid" : "Email not exists",
-  "invalid_credentials"   : "Invalid Credentials",
-  "user_already_exists"   : "User already register",
-  "user_not_found"        : "User not found"
-};
-
 export class AuthExceptionHandler {
 
   private _authError!: AuthError;
@@ -25,6 +15,6 @@ export class AuthExceptionHandler {
   }
 
   public errorMessage() {
-    return this.authError.code && authMessagesError[this.authError.code] || "Unknown Error";
+    return this._authError.message || "Unknown Error";
   }
 }

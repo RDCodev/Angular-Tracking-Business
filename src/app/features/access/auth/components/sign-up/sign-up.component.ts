@@ -129,7 +129,7 @@ export class SignUpComponent implements OnInit {
 
   public onSubmit() {
     this.accessForm.submit()
-      .then((msg) => console.log(msg))
-      .catch((err) => console.log(err))
+      .then((msg) => this.snackBar.open(msg))
+      .catch((err) => this.snackBar.open(err))
   }
 }
