@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthForm, FormCreator, SignInFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
 import { SupabaseService } from '@core/services/supabase.service';
 import { SignInDTO, SignInForm } from '@features/access/auth/models/sign-in.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'kmx-sign-in',
@@ -29,24 +30,23 @@ import { SignInDTO, SignInForm } from '@features/access/auth/models/sign-in.mode
 })
 export class SignInComponent implements OnInit {
 
-  private readonly envInjector  = inject(EnvironmentInjector);
-  private readonly supabase     = inject(SupabaseService);
+  private readonly snackbar = inject(MatSnackBar);
 
   private accessForm  !: AuthForm<SignInDTO>;
   public signInForm   !: FormGroup;
 
-  public usernameError = computed<string>(() => {
+  public emailError = computed<string>(() => {
 
-    const errors = this.username.errors;
+    const errors = this.email.errors;
 
-    if (this.username.valid && !errors) return ""; 
+    if (this.email.valid && !errors) return ""; 
       
     switch (true) {
       case errors?.["required"]:
-        return "Username is required.";
+        return "Email is required.";
 
       default:
-        return "Username is invalid.";
+        return "Email is invalid.";
     }
   });
 
@@ -71,8 +71,8 @@ export class SignInComponent implements OnInit {
   
   ngOnInit(): void { }
 
-  get username() {
-    return this.signInForm.controls['username'];
+  get email() {
+    return this.signInForm.controls['email'];
   }
 
   get password() {
@@ -86,8 +86,8 @@ export class SignInComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.accessForm.submit((dto) => {
-      console.log(dto)
-    })
+    this.accessForm.submit()
+      .then((msg) => this.snackbar.open(msg))
+      .catch((err) => this.snackbar.open(err))
   }
 }

@@ -1,13 +1,13 @@
 <form class="form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="outline">
-    <mat-label>Username</mat-label>
+    <mat-label>Email</mat-label>
     <input 
       matInput 
       type="text" 
-      formControlName="username"
+      formControlName="email"
     />
-    @if(username.invalid) {
-      <mat-error>{{ usernameError() }}</mat-error>
+    @if(email.invalid) {
+      <mat-error>{{ emailError() }}</mat-error>
     }
   </mat-form-field>
   <mat-form-field appearance="outline">
@@ -17,7 +17,7 @@
       type="password" 
       formControlName="password"
     />
-    @if(username.invalid) {
+    @if(email.invalid) {
       <mat-error>{{ passwordError() }}</mat-error>
     }
   </mat-form-field>

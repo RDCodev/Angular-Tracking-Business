@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, EnvironmentInjector, inject, OnInit, runInInjectionContext, Signal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -30,7 +30,7 @@ import { AuthService } from '@features/access/auth/services/auth.service';
 export class SignUpComponent implements OnInit {
 
   private readonly snackBar = inject(MatSnackBar);
-  private readonly authService = inject(AuthService);
+  private readonly authService = inject(AuthService); 
 
   public accessForm !: AuthForm<SignUpDTO>;
   public signUpForm !: FormGroup;
