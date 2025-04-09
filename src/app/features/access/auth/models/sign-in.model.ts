@@ -1,25 +1,39 @@
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormControlOptions, FormGroup, Validators } from "@angular/forms";
 import { AuthForm } from "../utils/factory/auth-factory.util";
 import { inject } from "@angular/core";
-import { SupabaseService } from "@core/services/supabase.service";
 import { AuthService } from "../services/auth.service";
 
 export interface RawSignIn {
-  username    : string;
+  email    : string;
   password    : string;
   rememberMe  : boolean;
 }
 
 export class SignInDTO implements RawSignIn {
   
-  public username     : string;
+  public email     : string;
   public password     : string;
   public rememberMe   : boolean = false;
 
   constructor(options: RawSignIn) {
-    this.username     = options.username;
+    this.email     = options.email;
     this.password     = options.password;
     this.rememberMe   = options.rememberMe || false;
+  }
+}
+
+const signInControls: Record<string, FormControlOptions> = { 
+  "email": {
+    validators: [Validators.required, Validators.email],
+    nonNullable: true
+  },
+  "password": {
+    validators: [Validators.required],
+    nonNullable: true,
+  },
+  "rememberMe": {
+    validators: [],
+    nonNullable: true,
   }
 }
 
@@ -34,24 +48,14 @@ export class SignInForm<T = SignInDTO> implements AuthForm<T> {
 
   private init() {
 
-    const usernameValidators = [Validators.required];
-    const passwordValidators = [Validators.required];
-
     this.form = new FormGroup({
-      username: new FormControl<string>('', { 
-        validators: usernameValidators, 
-        updateOn: 'change' 
-      }),
-      password: new FormControl<string>('', { 
-        validators: passwordValidators, 
-        updateOn: 'blur' 
-      }),
-      rememberMe: new FormControl<boolean>(false),
+      email: new FormControl<string>('', signInControls['email']),
+      password: new FormControl<string>('', signInControls['password']),
+      rememberMe: new FormControl<boolean>(false, signInControls['rememberMe']),
     });
-
   }
 
   public submit() {
-    return this.auth.signInUser()
+    return this.auth.signInUser(new SignInDTO(this.form.value))
   }
 }

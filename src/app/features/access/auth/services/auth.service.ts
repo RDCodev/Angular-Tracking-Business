@@ -4,10 +4,11 @@ import { AuthExceptionHandler } from "@core/utils/authException.handler";
 import { AuthError, AuthSession } from "@supabase/supabase-js";
 import { LocalStorageService } from "ngx-localstorage";
 import { SignUpDTO } from "../models/sign-up.model";
+import { SignInDTO } from "../models/sign-in.model";
 
 export interface KhumoxAuthentication {
   initSession : () => void;
-  signInUser  : () => Promise<string>;
+  signInUser  : (dto: SignInDTO) => Promise<string>;
   signUpUser  : (dto: SignUpDTO) => Promise<string>;
 }
 
@@ -53,9 +54,7 @@ export class AuthService extends Authentication implements KhumoxAuthentication 
 
   public authError = signal<AuthError | null>(null);
 
-  constructor() { 
-    super()
-  }
+  constructor() { super() }
   
   public override async initSession() {
 
@@ -73,8 +72,19 @@ export class AuthService extends Authentication implements KhumoxAuthentication 
     }
   }
   
-  public async signInUser(): Promise<string> {
-    return "";
+  public async signInUser({ email, password }: SignInDTO): Promise<string> {
+    const { supabase } = this.supabase;
+
+    const { data: { session, user }, error } = await supabase.auth.signInWithPassword({
+      email, 
+      password
+    });
+
+    if (session || user) return "Sign In Successfully";
+
+    error instanceof AuthError && this.setAuthError(error as AuthError);
+
+    throw this.authException.errorMessage();
   }
 
   public async signUpUser({ email, password, ...data }: SignUpDTO): Promise<string> {
@@ -85,9 +95,9 @@ export class AuthService extends Authentication implements KhumoxAuthentication 
       email,
       password,
       options: { data }
-    })
+    });
 
-    if (session || user) return "Sign Up Successfully"
+    if (session || user) return "Sign Up Successfully";
     
     error instanceof AuthError && this.setAuthError(error as AuthError);
 
