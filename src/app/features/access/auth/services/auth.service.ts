@@ -80,7 +80,7 @@ export class AuthService extends Authentication implements KhumoxAuthentication 
       password
     });
 
-    if (session || user) return "Sign In Successfully";
+    if (session || user) return "Successfully!";
 
     error instanceof AuthError && this.setAuthError(error as AuthError);
 
@@ -97,7 +97,7 @@ export class AuthService extends Authentication implements KhumoxAuthentication 
       options: { data }
     });
 
-    if (session || user) return "Sign Up Successfully";
+    if (session || user) return "Successfully!";
     
     error instanceof AuthError && this.setAuthError(error as AuthError);
 

@@ -79,7 +79,7 @@ export class SignUpComponent implements OnInit {
 
     switch(true) {
       case errors?.["passwordMismatch"]:
-        return "Password and Confirm Password must match";
+        return "Passwords do not match";
 
       case errors?.["required"]:
         return "Confirm Password is required";
@@ -94,14 +94,6 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void { }
-
-  get firstName() {
-    return this.signUpForm.controls["firstName"];
-  }
-
-  get lastName() {
-    return this.signUpForm.controls["lastName"];
-  }
 
   get username() {
     return this.signUpForm.controls["username"];
@@ -129,7 +121,7 @@ export class SignUpComponent implements OnInit {
 
   public onSubmit() {
     this.accessForm.submit()
-      .then((msg) => this.snackBar.open(msg))
-      .catch((err) => this.snackBar.open(err))
+      .then((msg) => this.snackBar.open(msg, "Dismiss", { duration: 5000 }))
+      .catch((err) => this.snackBar.open(err, "Dismiss", { duration: 5000 }));
   }
 }

@@ -87,7 +87,7 @@ export class SignInComponent implements OnInit {
 
   public onSubmit() {
     this.accessForm.submit()
-      .then((msg) => this.snackbar.open(msg))
-      .catch((err) => this.snackbar.open(err))
+      .then((msg) => this.snackbar.open(msg, "Dismiss", { duration: 5000 }))
+      .catch((err) => this.snackbar.open(err, "Dismiss", { duration: 5000 }))
   }
 }
