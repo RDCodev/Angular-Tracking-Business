@@ -1,8 +1,8 @@
 export default {
-  displayName: 'moderng-ui',
+  displayName: 'khumox',
   preset: './jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: './coverage/moderng-ui',
+  coverageDirectory: './coverage/khumox',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

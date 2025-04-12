@@ -1,4 +1,4 @@
-# ModerngUi
+# Khumox
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
@@ -16,19 +16,19 @@
 To run the dev server for your app, use:
 
 ```sh
-npx nx serve moderng-ui
+npx nx serve khumox
 ```
 
 To create a production bundle:
 
 ```sh
-npx nx build moderng-ui
+npx nx build khumox
 ```
 
 To see all available targets to run for a project, run:
 
 ```sh
-npx nx show project moderng-ui
+npx nx show project khumox
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
