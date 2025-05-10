@@ -25,8 +25,10 @@
     <mat-checkbox formControlName="rememberMe">Remember</mat-checkbox>
     <a href="#" class="helpers__link">Forgot password</a>
   </div>
-  <button type="submit" mat-flat-button [disabled]="signInForm.invalid">
-    <mat-icon fontIcon="progress_activity"></mat-icon>
+  <button type="submit" mat-flat-button [disabled]="isDisabled()">
     Login
+    @if (isDisabled() && isLoading()) {
+      <span class="button--loading">...</span>
+    }
   </button>
 </form>

@@ -1,7 +1,8 @@
-import { FormControl, FormControlOptions, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormControlOptions, FormControlStatus, FormGroup, Validators } from "@angular/forms";
 import { AuthForm } from "../utils/factory/auth-factory.util";
-import { inject } from "@angular/core";
+import { ChangeDetectorRef, inject, Signal } from "@angular/core";
 import { AuthService } from "../services/auth.service";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 export interface RawSignIn {
   email    : string;
@@ -37,25 +38,38 @@ const signInControls: Record<string, FormControlOptions> = {
   }
 }
 
-export class SignInForm<T = SignInDTO> implements AuthForm<T> {
+export class SignInForm<T = SignInDTO, H = string> implements AuthForm<T, H> {
 
   private auth = inject(AuthService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
 
   dto   !: T;
   form  !: FormGroup;
+  statusChange !: Signal<FormControlStatus | undefined>
 
   constructor() { this.init();  }
 
   private init() {
-
     this.form = new FormGroup({
       email: new FormControl<string>('', signInControls['email']),
       password: new FormControl<string>('', signInControls['password']),
       rememberMe: new FormControl<boolean>(false, signInControls['rememberMe']),
     });
+
+    this.wrapStatusFormChange();
   }
 
-  public submit() {
+  private wrapStatusFormChange() {
+
+    if (!this.form) throw Error("Form is not initialize...");
+
+    this.statusChange = toSignal(this.form.statusChanges)
+  }
+
+  public submit(cb?: (...args: H[]) => void): Promise<string> {
+
+    if (cb && cb instanceof Function) cb();
+
     return this.auth.signInUser(new SignInDTO(this.form.value))
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, EnvironmentInjector, inject, OnInit, runInInjectionContext } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -8,7 +8,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthForm, FormCreator, SignInFormCreator } from '@features/access/auth/utils/factory/auth-factory.util';
-import { SupabaseService } from '@core/services/supabase.service';
 import { SignInDTO, SignInForm } from '@features/access/auth/models/sign-in.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -32,8 +31,18 @@ export class SignInComponent implements OnInit {
 
   private readonly snackbar = inject(MatSnackBar);
 
-  private accessForm  !: AuthForm<SignInDTO>;
-  public signInForm   !: FormGroup;
+  public authForm !: AuthForm<SignInDTO>;
+  public signInForm !: FormGroup;
+  public isLoading = signal(false);
+
+  public isDisabled = computed<boolean>(() => {
+
+    if (this.authForm.statusChange() !== "VALID") return true;
+
+    if (this.isLoading()) return true
+
+    return false
+  })
 
   public emailError = computed<string>(() => {
 
@@ -66,7 +75,7 @@ export class SignInComponent implements OnInit {
   });
 
   constructor() { 
-    this.initAccessForm(new SignInFormCreator());
+    this.initAuthForm(new SignInFormCreator());
   }
   
   ngOnInit(): void { }
@@ -79,15 +88,17 @@ export class SignInComponent implements OnInit {
     return this.signInForm.controls['password'];
   }
 
-  private initAccessForm(creator: FormCreator<SignInForm>) {
-    this.accessForm = creator.createForm();
+  private initAuthForm(creator: FormCreator<SignInForm>) {
+    this.authForm = creator.createForm();
 
-    this.signInForm = this.accessForm.form;
+    this.signInForm = this.authForm.form;
   }
 
-  public onSubmit() {
-    this.accessForm.submit()
-      .then((msg) => this.snackbar.open(msg, "Dismiss", { duration: 5000 }))
-      .catch((err) => this.snackbar.open(err, "Dismiss", { duration: 5000 }))
+  public onSubmit() {        
+    this.authForm.submit(() => this.isLoading.set(true))
+      .then((msg) => this.snackbar.open(`🟢 ${msg}`, "Dismiss", { duration: 5000 }))
+      .catch((err) => this.snackbar.open(`🔴 ${err}`, "Dismiss", { duration: 5000 }))
+      .finally(() => this.isLoading.set(false))
   }
+
 }

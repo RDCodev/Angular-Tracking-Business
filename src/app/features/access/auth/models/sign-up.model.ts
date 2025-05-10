@@ -1,7 +1,7 @@
-import { FormControl, FormControlOptions, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlOptions, FormControlStatus, FormGroup, Validators } from '@angular/forms';
 import { AuthForm } from '../utils/factory/auth-factory.util';
 import { validatePasswords } from '../utils/validators/validate-password';
-import { inject } from '@angular/core';
+import { inject, Signal } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 export interface RawSignUp {
@@ -47,6 +47,7 @@ export class SignUpForm<T = SignUpDTO> implements AuthForm<T> {
 
   dto   !: T;
   form  !: FormGroup;
+  statusChange !: Signal<FormControlStatus | undefined>
 
   constructor() { this.init(); }
 

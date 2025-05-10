@@ -2,7 +2,6 @@ import { inject, Injectable, signal } from "@angular/core";
 import { SupabaseService } from "@core/services/supabase.service";
 import { AuthExceptionHandler } from "@core/utils/authException.handler";
 import { AuthError, AuthSession } from "@supabase/supabase-js";
-import { LocalStorageService } from "ngx-localstorage";
 import { SignUpDTO } from "../models/sign-up.model";
 import { SignInDTO } from "../models/sign-in.model";
 
@@ -50,29 +49,28 @@ abstract class Authentication  {
 export class AuthService extends Authentication implements KhumoxAuthentication {
 
   private readonly supabase = inject(SupabaseService);
-  private readonly ngxLocalStorage = inject(LocalStorageService);
 
   public authError = signal<AuthError | null>(null);
 
   constructor() { super() }
   
-  public override async initSession() {
+  public override async initSession(): Promise<void> {
 
     const { supabase } = this.supabase;
+    
+    const { data: { session }, error } = await supabase.auth.getSession();
 
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-
-      if (error || !session) throw error || GenericAuthError
-
-      this.session = session
-
-    } catch (error) {
-      error instanceof AuthError && this.setAuthError(error as AuthError); 
+    if (session) {
+      this.session = session; return;
     }
+
+    error instanceof AuthError && this.setAuthError(error as AuthError);
+
+    throw error || GenericAuthError
   }
   
   public async signInUser({ email, password }: SignInDTO): Promise<string> {
+    
     const { supabase } = this.supabase;
 
     const { data: { session, user }, error } = await supabase.auth.signInWithPassword({
