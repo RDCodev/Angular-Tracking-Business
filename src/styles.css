@@ -4,6 +4,7 @@
   box-sizing: border-box;
   margin: 0rem;
   padding: 0rem;
+  z-index: 10;
 }
 
 html, body { 

@@ -1,25 +1,43 @@
 <layout-main>
   <div class="container__wrapper">
     <div class="profile">
-      <div class="profile__header">
-        <div class="profile__banner"></div>
-        <div class="profile__picture"></div>
-        <div class="profile__user-info">
-          <h1 class="user-info__username">Lorem...</h1>
-          <span class="user-info__location">Lorem...</span>
-        </div>
+      <div class="profile__banner">
+        <img 
+          alt="banner" 
+          class="banner__img"
+          ngSrc="https://ucarecdn.com/253909c4-51f1-4c8d-8d54-e57d459e85c2/-/preview/1000x562/"
+          priority
+          fill
+        />
       </div>
-      <div class="profile__container">
-        <div class="profile__user-details">
-          <span class="profile__user-title">Lorem...</span>
-          <span class="profile__user-desc">Lorem...</span>
+      <div class="profile__header">
+        <div class="profile__picture">
+          <img 
+            alt="picture"
+            class="profile__img"
+            ngSrc="https://ucarecdn.com/e8056b05-5881-446b-98c7-072ea632f624/-/preview/512x512/"
+            fill
+            priority
+          />
+        </div>
+        <div class="user-info">
+          <h1 class="user-info__username">Username...</h1>
+          <span class="user-info__location">Location...</span>
+        </div>        
+      </div>
+      <div class="profile__content">
+        <div class="user-details">
+          <h3 class="user-title">Title...</h3>
+          <span class="user-desc">Description...</span>
         </div>
         <hr class="profile__divider"/>
-        <div class="profile__personal-info">
-          <span class="profile__user-title">Lorem...</span>
-          <span class="profile__user-desc"></span>
-          <div class="profile__personal-info__inputs">
-            <div class="profile__user-input"></div>
+        <div class="user-personal-info">
+          <h3 class="user-title">User Information...</h3>
+          <span class="user-desc">Description...</span>
+          <div class="personal-info__inputs">
+            <div class="user-input">
+              Inputs...
+            </div>
           </div>
         </div>
       </div>
