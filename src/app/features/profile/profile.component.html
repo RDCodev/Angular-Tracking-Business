@@ -1,15 +1,15 @@
 <layout-main>
-  <div class="container__wrapper">
-    <div class="profile">
-      <div class="profile__banner">
-        <img 
-          alt="banner" 
-          class="banner__img"
-          ngSrc="https://ucarecdn.com/253909c4-51f1-4c8d-8d54-e57d459e85c2/-/preview/1000x562/"
-          priority
-          fill
-        />
-      </div>
+  <div class="profile">
+    <div class="profile__banner">
+      <img 
+        alt="banner" 
+        class="banner__img"
+        ngSrc="https://ucarecdn.com/253909c4-51f1-4c8d-8d54-e57d459e85c2/-/preview/1000x562/"
+        priority
+        fill
+      />
+    </div>
+    <div class="profile__content">
       <div class="profile__header">
         <div class="profile__picture">
           <img 
@@ -21,23 +21,33 @@
           />
         </div>
         <div class="user-info">
-          <h1 class="user-info__username">Username...</h1>
-          <span class="user-info__location">Location...</span>
+          <h1 class="user-info__username">Daln.dev</h1>
+          <p class="user-info__role">Administrator</p>
+          <p class="user-info__location">New York, EE.UU</p>
         </div>        
       </div>
-      <div class="profile__content">
-        <div class="user-details">
-          <h3 class="user-title">Title...</h3>
-          <span class="user-desc">Description...</span>
+      <div class="user-details">
+        <h3 class="user-title">User Profile</h3>
+        <span class="user-desc">Takimata et accusam sit aliquyam erat imperdiet ea dolore clita luptatum.</span>
+        <div class="user-details__actions">
+          <button mat-button>Cancel</button>
+          <button mat-flat-button>Save</button>
         </div>
-        <hr class="profile__divider"/>
-        <div class="user-personal-info">
-          <h3 class="user-title">User Information...</h3>
-          <span class="user-desc">Description...</span>
-          <div class="personal-info__inputs">
-            <div class="user-input">
-              Inputs...
-            </div>
+      </div>
+      <hr class="profile__divider"/>
+      <div class="user-personal-info">
+        <h3 class="user-title">Personal Information</h3>
+        <!-- <span class="user-desc">Takimata et accusam sit aliquyam erat imperdiet ea dolore clita luptatum.</span> -->
+        <div class="personal-info__inputs">
+          <div class="user-input">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input matInput type="text" placeholder="First Name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input matInput type="text" placeholder="Last Name">
+            </mat-form-field>
           </div>
         </div>
       </div>

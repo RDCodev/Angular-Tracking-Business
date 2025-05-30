@@ -1,5 +1,8 @@
 import { CommonModule, NgOptimizedImage } from "@angular/common";
 import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { MainLayout } from "@layouts/home/main.component";
 
 @Component({
@@ -10,7 +13,10 @@ import { MainLayout } from "@layouts/home/main.component";
     imports: [
         MainLayout,
         NgOptimizedImage,
-        CommonModule
+        CommonModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule
     ]
 })
 export class ProfileComponent { }
